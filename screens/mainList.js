@@ -15,26 +15,26 @@ import {
 const DATA = [
     {
         title: 'Dairy',
-        id: '1',
+        id: 1,
         imageurl:
             'https://img.favpng.com/19/5/15/milk-substitute-dairy-products-food-png-favpng-vmYbiv194gvXhahbHGiGi7L16.jpg',
     },
     {
         title: 'Spices',
-        id: '2',
+        id: 2,
         imageurl:
             'https://banner2.cleanpng.com/20180705/eps/kisspng-ras-el-hanout-indian-cuisine-vegetarian-cuisine-sp-spices-5b3ea3b8e1a8f4.3757129615308318009243.jpg',
     },
-    { title: 'Breads', id: '3', imageurl: '../assets/dairy.png' },
-    { title: 'Flour', id: '4', imageurl: '../assets/dairy.png' },
-    { title: 'Fruits', id: '5', imageurl: '../assets/dairy.png' },
-    { title: 'Vegetables', id: '6', imageurl: '../assets/dairy.png' },
+    { title: 'Breads', id: 3, imageurl: '../assets/dairy.png' },
+    { title: 'Flour', id: 4, imageurl: '../assets/dairy.png' },
+    { title: 'Fruits', id: 5, imageurl: '../assets/dairy.png' },
+    { title: 'Vegetables', id: 6, imageurl: '../assets/dairy.png' },
     {
         title: 'Animal Products',
-        id: '7',
+        id: 7,
         imageurl: '../assets/dairy.png',
     },
-    { title: 'Liquids', id: '8', imageurl: '../assets/dairy.png' },
+    { title: 'Liquids', id: 8, imageurl: '../assets/dairy.png' },
 ];
 
 class List extends React.Component {
@@ -42,7 +42,37 @@ class List extends React.Component {
         this.props.navigation.navigate(category);
     }
 
+    add(value) {
+        this.props.change(value);
+    }
+    del(value) {
+        this.props.remove(value);
+    }
+    handleUpdateIndex(selected, names) {
+        this.setState({ selectedIndex: selected });
+        this.setState({ name: names });
+    }
+
+    revertUpdateIndex(selectedIndex) {
+        this.setState({ selectedIndex: 0 });
+        this.setState({ name: 'Add Ingredients' });
+    }
+
+    constructor() {
+        super();
+        this.state = {
+            selectedIndex: 0,
+            name: 'Add Ingredients',
+        };
+        this.handleUpdateIndex = this.handleUpdateIndex.bind(this);
+        this.revertUpdateIndex = this.revertUpdateIndex.bind(this);
+
+        //this.handleUpdateIndex = this.handleUpdateIndex.bind(this)
+        //this.revertUpdateIndex = this.revertUpdateIndex.bind(this)
+    }
+
     render() {
+        const { selectedIndex } = this.state;
         return (
             <SafeAreaView style={styles.container}>
                 <FlatList
